@@ -20,6 +20,12 @@ namespace POW.Controls
             _platformCreatedChannel.OnCubePlatformCreated += ReceiveCreatedPlatform;
         }
 
+        private void OnDisable()
+        {
+            _inputChannel.OnInputReceived -= RotatePlatform;
+            _platformCreatedChannel.OnCubePlatformCreated -= ReceiveCreatedPlatform;
+        }
+
         private void ReceiveCreatedPlatform(Transform platform)
         {
             _platform = platform;
@@ -29,12 +35,9 @@ namespace POW.Controls
         {
             Vector3 dragInput = inputData.CurrentInput - inputData.PreviousInput;
 
-            //Vector3 axis = new Vector3(-dragInput.y, -dragInput.x, 0);
-            Vector3 axis = new Vector3(-dragInput.y * _rotateSpeed, -dragInput.x * _rotateSpeed, 0);
+            Vector3 axis = new Vector3(dragInput.y * _rotateSpeed, -dragInput.x * _rotateSpeed, 0);
 
             _platform.Rotate(axis, Space.World);
-
-            //_platform.RotateAround(_platform.position, axis, Time.deltaTime * _rotateSpeed);
         }
     }
 }
