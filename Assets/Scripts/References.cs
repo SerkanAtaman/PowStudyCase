@@ -1,5 +1,6 @@
 using UnityEngine;
 using POW.Creators;
+using POW.Datas;
 using POW.BroadcastingChannels.CubePlatformChannel;
 
 public class References : MonoBehaviour
@@ -8,6 +9,8 @@ public class References : MonoBehaviour
 
     public GameObject CubePref;
     public PlatformCreatedChannel PlatformCreatedChannel;
+
+    public CubePlatformData CubePlatformData { get; set; }
 
     private CubePlatformCreator creator;
 

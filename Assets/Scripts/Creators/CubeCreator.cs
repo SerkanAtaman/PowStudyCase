@@ -1,15 +1,22 @@
 using POW.Datas;
+using POW.Cubes;
 using UnityEngine;
 
 namespace POW.Creators
 {
     public class CubeCreator
     {
-        public void CreateCube(CubeDataContainer cubeContainer, Transform holder)
+        public void CreateCube(int x, int y, int z, Transform holder)
         {
-            Vector3 pos = new Vector3(cubeContainer.X, cubeContainer.Y, cubeContainer.Z);
+            Vector3 pos = new Vector3(x, y, z);
 
-            Object.Instantiate(References.Instance.CubePref, pos, Quaternion.identity, holder).name = $"[{cubeContainer.X},{cubeContainer.Y},{cubeContainer.Z}]";
+            GameObject cube = Object.Instantiate(References.Instance.CubePref, pos, Quaternion.identity, holder);
+            cube.name = $"[{x},{y},{z}]";
+
+            CubeMono mono = cube.GetComponent<CubeMono>();
+
+            mono.Init(CubeType.Default, new Vector3Int(x, y, z));
+            References.Instance.CubePlatformData.UpdateCube(x, y, z, mono);
         }
     }
 }

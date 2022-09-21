@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using POW.BroadcastingChannels.InputChannel;
 
 namespace POW.Controls
 {
@@ -7,8 +8,12 @@ namespace POW.Controls
     {
         [SerializeField] private InputData _inputData;
 
+        [Header("Broadcasting To")]
+        [SerializeField] private DragReceiverChannel _dragChannel;
+
         public void OnBeginDrag(PointerEventData eventData)
         {
+            _dragChannel.OnDragStateChanged?.Invoke(true);
             _inputData.ReceiveInput(eventData.pointerCurrentRaycast.screenPosition, eventData.pointerCurrentRaycast.screenPosition);
         }
 
@@ -19,6 +24,7 @@ namespace POW.Controls
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            _dragChannel.OnDragStateChanged?.Invoke(false);
             _inputData.ResetData();
         }
 
