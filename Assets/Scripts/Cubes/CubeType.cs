@@ -2,7 +2,19 @@ namespace POW.Cubes
 {
     public enum CubeType
     {
-        Default,
-        Marked
+        Avacado,
+        Bell,
+        BlueBerry,
+        Book,
+        Bottle,
+        Branch,
+        Cake,
+        Carrot,
+        Cherry,
+        Cup,
+        Cupcake,
+        Diamond,
+        Donut,
+        IceCream
     }
 }
