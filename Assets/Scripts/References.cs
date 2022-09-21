@@ -1,11 +1,13 @@
 using UnityEngine;
 using POW.Creators;
+using POW.BroadcastingChannels.CubePlatformChannel;
 
 public class References : MonoBehaviour
 {
     public static References Instance;
 
     public GameObject CubePref;
+    public PlatformCreatedChannel PlatformCreatedChannel;
 
     private CubePlatformCreator creator;
 
