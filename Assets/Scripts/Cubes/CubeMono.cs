@@ -6,9 +6,10 @@ namespace POW.Cubes
     public class CubeMono : MonoBehaviour, IInteractable
     {
         [SerializeField] private CubeRotator _cubeRotator;
+        [SerializeField] private Renderer _renderer;
 
         [Header("Broadcasting On")]
-        [SerializeField] private CubeReserveChannel _cubeReserveChannel;
+        [SerializeField] private CubeReserveDemandChannel _cubeReserveChannel;
 
         public CubeType Type { get; private set; }
 
@@ -25,6 +26,7 @@ namespace POW.Cubes
             Coordinates = coords;
             _cubeRotator.enabled = false;
             DefaultLocalPos = transform.localPosition;
+            _renderer.material = References.Instance.AssetData.CubeMaterials[(int)Type];
         }
 
         public void Interact()
@@ -32,9 +34,14 @@ namespace POW.Cubes
             _interactAbility.Interact();
         }
 
+        public bool IsMatchableWith(CubeMono cube)
+        {
+            return cube.Type == Type;
+        }
+
         public void GetReserved()
         {
-            _cubeReserveChannel.OnCubeReserveDemanded?.Invoke(this, OnSuccessfullyReserved);
+            _cubeReserveChannel.OnCubeReserveDemanded?.Invoke(this);
         }
 
         public void GetBackToPlatform()
@@ -49,10 +56,20 @@ namespace POW.Cubes
             _interactAbility.InteractType = CubeInteractType.Reserve;
         }
 
-        private void OnSuccessfullyReserved()
+        public void GoToMatchArea(Transform parent, Vector3 localPos, Quaternion localRot, Vector3 localScale)
         {
+            transform.SetParent(parent);
+            transform.localPosition = localPos;
+            transform.localRotation = localRot;
+            transform.localScale = localScale;
+
             _cubeRotator.enabled = true;
             _interactAbility.InteractType = CubeInteractType.None;
+        }
+
+        public void SlideInReserve(float slideAmount)
+        {
+            transform.localPosition += new Vector3(slideAmount, 0, 0);
         }
     }
 }

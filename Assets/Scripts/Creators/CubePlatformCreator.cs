@@ -7,13 +7,13 @@ namespace POW.Creators
     {
         private CubeCreator _cubeCreator;
         
-        private readonly int _width = 3;
+        private readonly int _width = 4;
         private readonly int _height = 5;
-        private readonly int _length = 4;
+        private readonly int _length = 6;
 
         public void CreateCubePlatform()
         {
-            _cubeCreator = new CubeCreator();
+            _cubeCreator = new CubeCreator(_width, _height, _length);
             References.Instance.CubePlatformData = new CubePlatformData(_width, _height, _length);
 
             GameObject holder = new GameObject("CubePlatform");
@@ -25,7 +25,7 @@ namespace POW.Creators
                 {
                     for (int k = 0; k < _length; k++)
                     {
-                        _cubeCreator.CreateCube(i, j, k, holder.transform);
+                        _cubeCreator.CreateCube(new Vector3Int(i, j, k), holder.transform);
                     }
                 }
             }

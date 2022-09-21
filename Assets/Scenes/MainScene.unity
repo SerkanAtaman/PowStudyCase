@@ -168,12 +168,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a121db320191e1c4aa280b3f6cf9d34b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxCubeSize: 7
-  _cubeStartPosition: {x: -1.074, y: 0.1397766, z: -0.3820763}
-  _distanceBtwCubes: 0.36
-  _cubeScale: 0.33
-  _reserveHolder: {fileID: 497243978}
-  _cubeReserveChannel: {fileID: 11400000, guid: b06151369f19bd7438cfa08a2693ab24, type: 2}
+  <MaxCubeSize>k__BackingField: 7
+  <CubeStartPosition>k__BackingField: {x: -1.074, y: 0.1397766, z: -0.3820763}
+  <DistanceBtwCubes>k__BackingField: 0.36
+  <CubeScale>k__BackingField: {x: 0.33, y: 0.33, z: 0.33}
+  <ReserveHolder>k__BackingField: {fileID: 497243978}
+  _cubeReserveDemandChannel: {fileID: 11400000, guid: b06151369f19bd7438cfa08a2693ab24, type: 2}
+  _cubeReserveChannel: {fileID: 11400000, guid: 8f919709f22ad32459c304862d5d4722, type: 2}
 --- !u!1 &347012182
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 497243978}
   m_Layer: 0
-  m_Name: ReservedCubes
+  m_Name: ReserveHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -473,6 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CubePref: {fileID: 9035158755320990682, guid: e0db4b9877659d84895eef81d2b2342a, type: 3}
   PlatformCreatedChannel: {fileID: 11400000, guid: 8d171bc97cc7e4e419595ee78474ceb5, type: 2}
+  AssetData: {fileID: 11400000, guid: 7e066987cfd708143bd6e6a09ce67153, type: 2}
 --- !u!4 &1306425149
 Transform:
   m_ObjectHideFlags: 0

@@ -20,16 +20,72 @@ namespace POW.Gameplay.MatchingArea
             }
         }
 
-        public ReservedCubes()
+        private MatchArea _matchArea;
+
+        public ReservedCubes(MatchArea area)
         {
+            _matchArea = area;
             Size = 0;
             _reservedCubes = new List<CubeMono>();
+        }
+
+        private int GetCubeIndex(CubeMono cube)
+        {
+            for (int i = 0; i < Size; i++)
+            {
+                if (_reservedCubes[i].Type == cube.Type)
+                {
+                    return i;
+                }
+            }
+
+            return 0;
         }
 
         public void ReserveNewCube(CubeMono cube)
         {
             Size++;
             _reservedCubes.Add(cube);
+        }
+
+        public void ReserveNewCube(CubeMono cube, int index)
+        {
+            _reservedCubes[index] = cube;
+        }
+
+        public void ExpandListFromThis(CubeMono cube, float slideAmount)
+        {
+            int startIndex = GetCubeIndex(cube);
+
+            Size++;
+            _reservedCubes.Add(null);
+
+            for(int i = Size - 1; i > startIndex + 1; i--)
+            {
+                _reservedCubes[i] = _reservedCubes[i - 1];
+                _reservedCubes[i - 1].SlideInReserve(slideAmount);
+            }
+        }
+
+        public void RemoveCubes(CubeMono[] cubes)
+        {
+            int startIndex = GetCubeIndex(cubes[0]);
+
+            foreach(CubeMono c in cubes)
+            {
+                _reservedCubes.Remove(c);
+                Size--;
+                GameObject.Destroy(c.gameObject);
+            }
+
+            if (startIndex >= Size) return;
+
+            while(startIndex < Size)
+            {
+                _reservedCubes[startIndex].transform.localPosition = _matchArea.GetCubePositionInReserve(startIndex);
+
+                startIndex++;
+            }
         }
 
         public CubeMono UnreserveCube()
@@ -41,6 +97,54 @@ namespace POW.Gameplay.MatchingArea
             Size--;
 
             return cube;
+        }
+
+        public bool ContainsSameCube(CubeMono cubeToMatch)
+        {
+            bool contains = false;
+
+            for(int i = 0; i < Size; i++)
+            {
+                if(_reservedCubes[i].Type == cubeToMatch.Type)
+                {
+                    contains = true;
+                    break;
+                }
+            }
+
+            return contains;
+        }
+
+        public int GetTargetIndexForNewCube(CubeMono cube)
+        {
+            if (!ContainsSameCube(cube))
+            {
+                return Size;
+            }
+
+            return GetCubeIndex(cube) + 1;
+        }
+
+        public CubeMono[] GetMatchedCubes()
+        {
+            CubeMono[] matchedCubes = null;
+
+            for(int i = 0; i < Size - 2; i++)
+            {
+                if(_reservedCubes[i].IsMatchableWith(_reservedCubes[i + 1]))
+                {
+                    if (_reservedCubes[i + 1].IsMatchableWith(_reservedCubes[i + 2]))
+                    {
+                        matchedCubes = new CubeMono[3];
+                        matchedCubes[0] = _reservedCubes[i];
+                        matchedCubes[1] = _reservedCubes[i + 1];
+                        matchedCubes[2] = _reservedCubes[i + 2];
+                        return matchedCubes;
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

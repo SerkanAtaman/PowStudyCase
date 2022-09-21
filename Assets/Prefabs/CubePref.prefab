@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cubeRotator: {fileID: 6389141935518600480}
+  _renderer: {fileID: 4540466289312084653}
   _cubeReserveChannel: {fileID: 11400000, guid: b06151369f19bd7438cfa08a2693ab24, type: 2}
 --- !u!114 &6389141935518600480
 MonoBehaviour:
