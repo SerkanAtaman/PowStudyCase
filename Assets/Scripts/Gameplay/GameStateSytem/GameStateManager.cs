@@ -1,11 +1,14 @@
 using UnityEngine;
 using POW.Creators;
+using POW.Settings.Platform;
 using POW.BroadcastingChannels.GameStateChannels;
 using POW.BroadcastingChannels.MatchChannel;
 using POW.BroadcastingChannels.CubePlatformChannel;
 
 public class GameStateManager : MonoBehaviour
 {
+    [SerializeField] private CubePlatformSettings _platformSettings;
+
     [Header("Broadcasting On")]
     [SerializeField] private GameStateChangedChannel _stateChangedChannel;
     [SerializeField] private PlatformCreatedChannel _platformCreatedChannel;
@@ -22,7 +25,7 @@ public class GameStateManager : MonoBehaviour
     private void Start()
     {
         _creator = new CubePlatformCreator();
-        _creator.CreateCubePlatform(_platformCreatedChannel.OnCubePlatformCreated);
+        _creator.CreateCubePlatform(_platformSettings.CubePlatformSize, _platformCreatedChannel.OnCubePlatformCreated);
 
         _currentState = GameState.Initialization;
         _stateChangedChannel.OnGameStateChanged?.Invoke(_currentState);
@@ -78,6 +81,6 @@ public class GameStateManager : MonoBehaviour
     {
         _currentState = GameState.PlatformRecreation;
         _stateChangedChannel.OnGameStateChanged?.Invoke(_currentState);
-        _creator.RecreateCubePlatform(_platformCreatedChannel.OnCubePlatformCreated);
+        _creator.RecreateCubePlatform(_platformSettings.CubePlatformSize, _platformCreatedChannel.OnCubePlatformCreated);
     }
 }

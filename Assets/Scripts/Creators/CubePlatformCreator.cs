@@ -7,23 +7,19 @@ namespace POW.Creators
     {
         private CubeCreator _cubeCreator;
         
-        private readonly int _width = 7;
-        private readonly int _height = 7;
-        private readonly int _length = 7;
-
-        public void CreateCubePlatform(System.Action callback)
+        public void CreateCubePlatform(Vector3Int platformSize, System.Action callback)
         {
-            _cubeCreator = new CubeCreator(_width, _height, _length);
-            References.Instance.CubePlatformData = new CubePlatformData(_width, _height, _length);
+            _cubeCreator = new CubeCreator(platformSize.x, platformSize.y, platformSize.z);
+            References.Instance.CubePlatformData = new CubePlatformData(platformSize.x, platformSize.y, platformSize.z);
 
             GameObject holder = new GameObject("CubePlatform");
-            holder.transform.position = new Vector3(_width * 0.5f - 0.5f, _height * 0.5f - 0.5f, _length * 0.5f - 0.5f);
+            holder.transform.position = new Vector3(platformSize.x * 0.5f - 0.5f, platformSize.y * 0.5f - 0.5f, platformSize.z * 0.5f - 0.5f);
 
-            for (int i = 0; i < _width; i++)
+            for (int i = 0; i < platformSize.x; i++)
             {
-                for (int j = 0; j < _height; j++)
+                for (int j = 0; j < platformSize.y; j++)
                 {
-                    for (int k = 0; k < _length; k++)
+                    for (int k = 0; k < platformSize.z; k++)
                     {
                         _cubeCreator.CreateCube(new Vector3Int(i, j, k), holder.transform);
                     }
@@ -34,20 +30,20 @@ namespace POW.Creators
             callback?.Invoke();
         }
 
-        public void RecreateCubePlatform(System.Action callback)
+        public void RecreateCubePlatform(Vector3Int platformSize, System.Action callback)
         {
-            _cubeCreator = new CubeCreator(_width, _height, _length);
+            _cubeCreator = new CubeCreator(platformSize.x, platformSize.y, platformSize.z);
 
             GameObject holder = References.Instance.CubePlatformData.PlatformHolder.gameObject;
-            holder.transform.position = new Vector3(_width * 0.5f - 0.5f, _height * 0.5f - 0.5f, _length * 0.5f - 0.5f);
+            holder.transform.position = new Vector3(platformSize.x * 0.5f - 0.5f, platformSize.y * 0.5f - 0.5f, platformSize.z * 0.5f - 0.5f);
 
-            References.Instance.CubePlatformData = new CubePlatformData(_width, _height, _length);
+            References.Instance.CubePlatformData = new CubePlatformData(platformSize.x, platformSize.y, platformSize.z);
 
-            for (int i = 0; i < _width; i++)
+            for (int i = 0; i < platformSize.x; i++)
             {
-                for (int j = 0; j < _height; j++)
+                for (int j = 0; j < platformSize.y; j++)
                 {
-                    for (int k = 0; k < _length; k++)
+                    for (int k = 0; k < platformSize.z; k++)
                     {
                         _cubeCreator.CreateCube(new Vector3Int(i, j, k), holder.transform);
                     }

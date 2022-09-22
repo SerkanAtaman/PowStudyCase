@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08467a439ec130c48bdfce741ea4f600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _platformSettings: {fileID: 11400000, guid: a395c07d55957af4190c05e82f01ce99, type: 2}
   _stateChangedChannel: {fileID: 11400000, guid: bb030677be8ee1949a6d78baa03060a4, type: 2}
   _platformCreatedChannel: {fileID: 11400000, guid: 8d171bc97cc7e4e419595ee78474ceb5, type: 2}
   _cubeReserveStartedChannel: {fileID: 11400000, guid: 5ccd000d00c4d174687ac619195dbb2d, type: 2}
