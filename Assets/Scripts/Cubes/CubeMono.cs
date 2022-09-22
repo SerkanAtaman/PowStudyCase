@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using POW.BroadcastingChannels.InteractionChannel;
+using POW.BroadcastingChannels.CubeAnimationChannel;
 
 namespace POW.Cubes
 {
@@ -10,6 +12,7 @@ namespace POW.Cubes
 
         [Header("Broadcasting On")]
         [SerializeField] private CubeReserveDemandChannel _cubeReserveChannel;
+        [SerializeField] private CubeTweenChannel _cubeTweenChannel;
 
         public CubeType Type { get; private set; }
 
@@ -44,32 +47,30 @@ namespace POW.Cubes
             _cubeReserveChannel.OnCubeReserveDemanded?.Invoke(this);
         }
 
-        public void GetBackToPlatform()
+        public void GetBackToPlatform(Action callback)
         {
             _cubeRotator.enabled = false;
 
             transform.SetParent(References.Instance.CubePlatformData.PlatformHolder);
-            transform.localPosition = DefaultLocalPos;
-            transform.localRotation = Quaternion.identity;
-            transform.localScale = Vector3.one;
+
+            _cubeTweenChannel.OnCubeTweenDemanded?.Invoke(new CubeTweenData(transform, CubeTweenType.TPositionRotationScale, DefaultLocalPos, Quaternion.identity, Vector3.one, Space.Self, callback));
 
             _interactAbility.InteractType = CubeInteractType.Reserve;
         }
 
-        public void GoToMatchArea(Transform parent, Vector3 localPos, Quaternion localRot, Vector3 localScale)
+        public void GoToMatchArea(Transform parent, Vector3 localPos, Quaternion localRot, Vector3 localScale, Action callback)
         {
             transform.SetParent(parent);
-            transform.localPosition = localPos;
-            transform.localRotation = localRot;
-            transform.localScale = localScale;
+
+            _cubeTweenChannel.OnCubeTweenDemanded?.Invoke(new CubeTweenData(transform, CubeTweenType.TPositionRotationScale, localPos, localRot, localScale, Space.Self, callback));
 
             _cubeRotator.enabled = true;
             _interactAbility.InteractType = CubeInteractType.None;
         }
 
-        public void SlideInReserve(float slideAmount)
+        public void SetPositionInReserve(Vector3 localPos)
         {
-            transform.localPosition += new Vector3(slideAmount, 0, 0);
+            _cubeTweenChannel.OnCubeTweenDemanded?.Invoke(new CubeTweenData(transform, CubeTweenType.TPosition, localPos, Space.Self));
         }
     }
 }

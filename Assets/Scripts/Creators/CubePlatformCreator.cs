@@ -31,7 +31,7 @@ namespace POW.Creators
             }
 
             References.Instance.CubePlatformData.PlatformHolder = holder.transform;
-            References.Instance.PlatformCreatedChannel.OnCubePlatformCreated?.Invoke(holder.transform);
+            References.Instance.PlatformCreatedChannel.OnCubePlatformCreated?.Invoke(References.Instance.CubePlatformData);
         }
     }
 }

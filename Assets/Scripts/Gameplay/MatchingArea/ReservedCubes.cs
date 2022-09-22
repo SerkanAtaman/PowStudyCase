@@ -63,7 +63,7 @@ namespace POW.Gameplay.MatchingArea
             for(int i = Size - 1; i > startIndex + 1; i--)
             {
                 _reservedCubes[i] = _reservedCubes[i - 1];
-                _reservedCubes[i - 1].SlideInReserve(slideAmount);
+                _reservedCubes[i].SetPositionInReserve(_matchArea.GetCubePositionInReserve(i));
             }
         }
 
@@ -82,7 +82,7 @@ namespace POW.Gameplay.MatchingArea
 
             while(startIndex < Size)
             {
-                _reservedCubes[startIndex].transform.localPosition = _matchArea.GetCubePositionInReserve(startIndex);
+                _reservedCubes[startIndex].SetPositionInReserve(_matchArea.GetCubePositionInReserve(startIndex));
 
                 startIndex++;
             }
