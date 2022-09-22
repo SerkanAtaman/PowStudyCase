@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6e22f4bb5fed3b479a083afb7f10cd5, type: 3}
+  m_Name: ComboData
+  m_EditorClassIdentifier: 
+  <CurrentCombo>k__BackingField: 0
+  <CurrentComboStamina>k__BackingField: 0
+  <ComboSettings>k__BackingField: {fileID: 11400000, guid: f144f2154f28c4841b95f439d1a3d08e, type: 2}
+  _comboChangedChannel: {fileID: 11400000, guid: 418da105625011049ab79a8224d02528, type: 2}
+  _comboStaminaChangedChannel: {fileID: 11400000, guid: 38bcce9a42b859b4bb51529aae68ada7, type: 2}

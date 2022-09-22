@@ -681,6 +681,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff60168a27583d47b78f87e62916095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _comboBarInside: {fileID: 1136950912}
+  _comboText: {fileID: 215079218}
+  _comboIncreaseChannel: {fileID: 11400000, guid: 418da105625011049ab79a8224d02528, type: 2}
+  _comboStaminaChangedChannel: {fileID: 11400000, guid: 38bcce9a42b859b4bb51529aae68ada7, type: 2}
 --- !u!1 &1661463028
 GameObject:
   m_ObjectHideFlags: 0

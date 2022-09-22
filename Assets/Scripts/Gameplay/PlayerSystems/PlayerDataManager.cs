@@ -1,12 +1,14 @@
 using UnityEngine;
 using POW.BroadcastingChannels.MatchChannel;
 using POW.Datas.PlayerDatas;
+using POW.Datas.ComboDatas;
 
 namespace POW.Gameplay.PlayerSystems
 {
     public class PlayerDataManager : MonoBehaviour
     {
         [SerializeField] private PlayerData _playerData;
+        [SerializeField] private ComboData _comboData;
 
         [Header("Listening To")]
         [SerializeField] private MatchCreatedChannel _matchCreatedChannel;
@@ -18,7 +20,7 @@ namespace POW.Gameplay.PlayerSystems
 
         private void GivePlayerStar()
         {
-            _playerData.GivePlayerStar(5);
+            _playerData.GivePlayerStar(_comboData.CurrentCombo);
         }
     }
 }
