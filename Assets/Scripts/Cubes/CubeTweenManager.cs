@@ -30,14 +30,14 @@ namespace POW.Cubes
         {
             _cubeTweenChannel.OnCubeTweenDemanded += OnCubeTweenDemanded;
             _platformCreatedChannel.OnCubePlatformCreated += OnCubePlatformCreated;
-            _matchCreatedChannel.OnMatchCreated += OnMatchCreated;
+            _matchCreatedChannel.OnMatchCreatedWCubes += OnMatchCreated;
         }
 
         private void OnDisable()
         {
             _cubeTweenChannel.OnCubeTweenDemanded -= OnCubeTweenDemanded;
             _platformCreatedChannel.OnCubePlatformCreated -= OnCubePlatformCreated;
-            _matchCreatedChannel.OnMatchCreated -= OnMatchCreated;
+            _matchCreatedChannel.OnMatchCreatedWCubes -= OnMatchCreated;
         }
 
         private void OnCubeTweenDemanded(CubeTweenData tweenData)

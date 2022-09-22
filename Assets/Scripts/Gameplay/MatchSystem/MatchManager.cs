@@ -32,7 +32,7 @@ namespace POW.Gameplay.MatchSystem
 
         private void CheckPossibleMatches(ReservedCubes reservedCubes)
         {
-            if (_matchHandler.CheckMatches(reservedCubes, _matchCreatedChannel.OnMatchCreated)) return;
+            if (_matchHandler.CheckMatches(reservedCubes, _matchCreatedChannel.OnMatchCreatedWCubes, _matchCreatedChannel.OnMatchCreated)) return;
 
             _matchFailedChannel.OnMatchFailed?.Invoke();
         }

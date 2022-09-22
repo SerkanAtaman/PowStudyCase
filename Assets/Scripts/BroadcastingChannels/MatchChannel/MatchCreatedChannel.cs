@@ -7,6 +7,7 @@ namespace POW.BroadcastingChannels.MatchChannel
     [CreateAssetMenu(menuName = "ScriptableObjects/BroadcastChannels/Match/MatchCreatedChannel")]
     public class MatchCreatedChannel : ScriptableObject
     {
-        public Action<CubeMono[]> OnMatchCreated;
+        public Action<CubeMono[]> OnMatchCreatedWCubes;
+        public Action OnMatchCreated;
     }
 }

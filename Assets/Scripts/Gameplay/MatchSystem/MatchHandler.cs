@@ -13,7 +13,7 @@ namespace POW.Gameplay.MatchSystem
             _matchManager = manager;
         }
 
-        public bool CheckMatches(ReservedCubes reservedCubes, Action<CubeMono[]> onMatchFound)
+        public bool CheckMatches(ReservedCubes reservedCubes, Action<CubeMono[]> onMatchFound, Action callback)
         {
             CubeMono[] matchedCubes = reservedCubes.GetMatchedCubes();
 
@@ -22,6 +22,7 @@ namespace POW.Gameplay.MatchSystem
             reservedCubes.RemoveCubes(matchedCubes);
 
             onMatchFound?.Invoke(matchedCubes);
+            callback?.Invoke();
 
             return true;
         }
