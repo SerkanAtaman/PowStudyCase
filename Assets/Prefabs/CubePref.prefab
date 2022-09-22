@@ -130,6 +130,7 @@ MonoBehaviour:
   _cubeRotator: {fileID: 6389141935518600480}
   _renderer: {fileID: 4540466289312084653}
   _cubeReserveChannel: {fileID: 11400000, guid: b06151369f19bd7438cfa08a2693ab24, type: 2}
+  _cubeTweenChannel: {fileID: 11400000, guid: 0e189d61298ab054d8ddb95ac3a470e4, type: 2}
 --- !u!114 &6389141935518600480
 MonoBehaviour:
   m_ObjectHideFlags: 0

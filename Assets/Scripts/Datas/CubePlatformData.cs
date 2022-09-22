@@ -9,9 +9,16 @@ namespace POW.Datas
 
         public Transform PlatformHolder;
 
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public int Length { get; private set; }
+
         public CubePlatformData(int x, int y, int z)
         {
             _cubes = new CubeMono[x, y, z];
+            Width = x;
+            Height = y;
+            Length = z;
         }
 
         public void UpdateCube(int x, int y, int z, CubeMono cube)

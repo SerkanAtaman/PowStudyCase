@@ -48,13 +48,12 @@ namespace POW.Gameplay.MatchingArea
         {
             if (_matchArea.ReservedCubes.Size >= MaxCubeSize) return;
 
-            _matchArea.ReserveCube(cube);
-            _cubeReserveChannel.OnCubeReserved?.Invoke(_matchArea.ReservedCubes);
+            _matchArea.ReserveCube(cube, () => _cubeReserveChannel.OnCubeReserved?.Invoke(_matchArea.ReservedCubes));
         }
 
         private void UnreserveCube()
         {
-            _matchArea.UnreserveCube();
+            _matchArea.UnreserveCube(null);
         }
     }
 }

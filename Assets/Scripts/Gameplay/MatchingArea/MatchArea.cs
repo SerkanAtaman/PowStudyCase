@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using POW.Cubes;
 
@@ -16,7 +17,7 @@ namespace POW.Gameplay.MatchingArea
             _areaMono = areaMono;
         }
 
-        public void ReserveCube(CubeMono cube)
+        public void ReserveCube(CubeMono cube, Action onReserveCompleted)
         {
             int targetIndexInList = ReservedCubes.GetTargetIndexForNewCube(cube);
             Vector3 targetPos = _areaMono.CubeStartPosition + new Vector3(_areaMono.DistanceBtwCubes * targetIndexInList, 0, 0);
@@ -26,20 +27,20 @@ namespace POW.Gameplay.MatchingArea
             {
                 ReservedCubes.ExpandListFromThis(cube, _areaMono.DistanceBtwCubes);
                 ReservedCubes.ReserveNewCube(cube, targetIndexInList);
-                cube.GoToMatchArea(_areaMono.ReserveHolder, targetPos, rot, _areaMono.CubeScale);
+                cube.GoToMatchArea(_areaMono.ReserveHolder, targetPos, rot, _areaMono.CubeScale, onReserveCompleted);
 
                 return;
             }
 
             ReservedCubes.ReserveNewCube(cube);
-            cube.GoToMatchArea(_areaMono.ReserveHolder, targetPos, rot, _areaMono.CubeScale);
+            cube.GoToMatchArea(_areaMono.ReserveHolder, targetPos, rot, _areaMono.CubeScale, onReserveCompleted);
         }
 
-        public void UnreserveCube()
+        public void UnreserveCube(Action onReserveCompleted)
         {
             if (ReservedCubes.Size <= 0) return;
 
-            ReservedCubes.UnreserveCube().GetBackToPlatform();
+            ReservedCubes.UnreserveCube().GetBackToPlatform(onReserveCompleted);
         }
 
         public Vector3 GetCubePositionInReserve(int index)
