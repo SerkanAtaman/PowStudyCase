@@ -1,11 +1,14 @@
 using UnityEngine;
+using POW.Creators;
 using POW.BroadcastingChannels.GameStateChannels;
 using POW.BroadcastingChannels.MatchChannel;
+using POW.BroadcastingChannels.CubePlatformChannel;
 
 public class GameStateManager : MonoBehaviour
 {
     [Header("Broadcasting On")]
     [SerializeField] private GameStateChangedChannel _stateChangedChannel;
+    [SerializeField] private PlatformCreatedChannel _platformCreatedChannel;
 
     [Header("Listening To")]
     [SerializeField] private CubeReserveStartedChannel _cubeReserveStartedChannel;
@@ -14,9 +17,13 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private MatchAnimEndChannel _animEndChannel;
 
     private GameState _currentState;
+    private CubePlatformCreator _creator;
 
     private void Start()
     {
+        _creator = new CubePlatformCreator();
+        _creator.CreateCubePlatform(_platformCreatedChannel.OnCubePlatformCreated);
+
         _currentState = GameState.Initialization;
         _stateChangedChannel.OnGameStateChanged?.Invoke(_currentState);
     }
@@ -57,7 +64,20 @@ public class GameStateManager : MonoBehaviour
 
     private void OnMatchAnimEnded()
     {
+        if(References.Instance.CubePlatformData.Size <= 0)
+        {
+            OnPlatformEmptied();
+            return;
+        }
+
         _currentState = GameState.Gameplay;
         _stateChangedChannel.OnGameStateChanged?.Invoke(_currentState);
+    }
+
+    private void OnPlatformEmptied()
+    {
+        _currentState = GameState.PlatformRecreation;
+        _stateChangedChannel.OnGameStateChanged?.Invoke(_currentState);
+        _creator.RecreateCubePlatform(_platformCreatedChannel.OnCubePlatformCreated);
     }
 }

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530f5eb690e99c449a1d521e5ebb7f29, type: 3}
   m_Name: ComboSettings
   m_EditorClassIdentifier: 
-  <ComboStaminaConsumeSpeed>k__BackingField: 0.1
+  <ComboStaminaConsumeSpeed>k__BackingField: 0.5

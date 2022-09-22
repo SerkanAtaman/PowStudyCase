@@ -18,7 +18,6 @@ namespace POW.Gameplay.AbilitySystem.Managers
 
         private void ProcessUsedAbilitySlot(Ability ability)
         {
-            ability.AbilityCount--;
             _abilityUsedChannel.OnAbilityUsed?.Invoke(ability);
         }
     }

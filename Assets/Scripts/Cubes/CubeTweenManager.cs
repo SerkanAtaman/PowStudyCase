@@ -45,9 +45,9 @@ namespace POW.Cubes
             ProcessTweenDemand(tweenData);
         }
 
-        private void OnCubePlatformCreated(CubePlatformData platformData)
+        private void OnCubePlatformCreated()
         {
-            StartAnimatingInitialPlatform(platformData);
+            StartAnimatingInitialPlatform();
         }
 
         private void OnMatchCreated(CubeMono[] matchedCubes)
@@ -158,15 +158,18 @@ namespace POW.Cubes
             cubes[2].transform.DOMove(cubes[1].transform.position, _cubeTweenSettings.TweenPosDuration).onComplete += OnMatchedCubesMerged;
         }
 
-        private void StartAnimatingInitialPlatform(CubePlatformData platformData)
+        private void StartAnimatingInitialPlatform()
         {
+            CubePlatformData platformData = References.Instance.CubePlatformData;
+
             for (int i = 0; i < platformData.Width; i++)
             {
                 for (int j = 0; j < platformData.Height; j++)
                 {
                     for (int k = 0; k < platformData.Length; k++)
                     {
-                        platformData.GetCube(i, j, k).transform.position += new Vector3(0, 30, 0);
+                        CubeMono cube = platformData.GetCube(i, j, k);
+                        if(cube) cube.transform.position += new Vector3(0, 30, 0);
                     }
                 }
             }

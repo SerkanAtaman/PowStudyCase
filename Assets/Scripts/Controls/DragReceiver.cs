@@ -5,7 +5,7 @@ using POW.BroadcastingChannels.GameStateChannels;
 
 namespace POW.Controls
 {
-    public class InputReceiver : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class DragReceiver : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private InputData _inputData;
 
@@ -43,6 +43,11 @@ namespace POW.Controls
         }
 
         private void Update()
+        {
+            ReadKeyboardInput();
+        }
+
+        private void ReadKeyboardInput()
         {
             if (Input.GetKey(KeyCode.W))
             {

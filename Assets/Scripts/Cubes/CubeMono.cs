@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using POW.Datas.Assets;
 using POW.BroadcastingChannels.InteractionChannel;
 using POW.BroadcastingChannels.CubeAnimationChannel;
 
@@ -9,6 +10,7 @@ namespace POW.Cubes
     {
         [SerializeField] private CubeRotator _cubeRotator;
         [SerializeField] private Renderer _renderer;
+        [SerializeField] private AssetData _assetData;
 
         [Header("Broadcasting On")]
         [SerializeField] private CubeReserveDemandChannel _cubeReserveChannel;
@@ -29,7 +31,7 @@ namespace POW.Cubes
             Coordinates = coords;
             _cubeRotator.enabled = false;
             DefaultLocalPos = transform.localPosition;
-            _renderer.material = References.Instance.AssetData.CubeMaterials[(int)Type];
+            _renderer.material = _assetData.CubeMaterials[(int)Type];
         }
 
         public void Interact()

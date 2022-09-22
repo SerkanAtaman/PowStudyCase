@@ -1,5 +1,4 @@
 using UnityEngine;
-using POW.Datas;
 using POW.BroadcastingChannels.InputChannel;
 using POW.BroadcastingChannels.CubePlatformChannel;
 
@@ -27,9 +26,9 @@ namespace POW.Controls
             _platformCreatedChannel.OnCubePlatformCreated -= ReceiveCreatedPlatform;
         }
 
-        private void ReceiveCreatedPlatform(CubePlatformData platformData)
+        private void ReceiveCreatedPlatform()
         {
-            _platform = platformData.PlatformHolder;
+            _platform = References.Instance.CubePlatformData.PlatformHolder;
         }
 
         private void RotatePlatform(InputData inputData)

@@ -506,3 +506,4 @@ MonoBehaviour:
   _ability: {fileID: 0}
   _abilityCountText: {fileID: 5728816721675903891}
   _abilitySlotChannel: {fileID: 11400000, guid: 963526382c618ca468e674a430d2b3d9, type: 2}
+  _stateChangedChannel: {fileID: 11400000, guid: bb030677be8ee1949a6d78baa03060a4, type: 2}

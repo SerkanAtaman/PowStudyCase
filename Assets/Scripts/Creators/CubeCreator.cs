@@ -55,7 +55,7 @@ namespace POW.Creators
             CubeMono mono = cube.GetComponent<CubeMono>();
 
             mono.Init(GetRandomTypeFromDict(), new Vector3Int(coords.x, coords.y, coords.z));
-            References.Instance.CubePlatformData.UpdateCube(coords.x, coords.y, coords.z, mono);
+            References.Instance.CubePlatformData.AddCube(mono);
         }
 
         private bool IsCubePosSkippable(Vector3Int coords)
