@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using POW.BroadcastingChannels.InputChannel;
+using POW.BroadcastingChannels.GameStateChannels;
 
 namespace POW.Controls
 {
@@ -8,8 +9,21 @@ namespace POW.Controls
     {
         [SerializeField] private InputData _inputData;
 
-        [Header("Broadcasting To")]
+        [Header("Broadcasting On")]
         [SerializeField] private DragReceiverChannel _dragChannel;
+
+        [Header("Listening To")]
+        [SerializeField] private GameStateChangedChannel _gameStateChangedChannel;
+
+        private void Awake()
+        {
+            _gameStateChangedChannel.OnGameStateChanged += OnGameStateChanged;
+        }
+
+        private void OnGameStateChanged(GameState state)
+        {
+            enabled = state == GameState.Gameplay;
+        }
 
         public void OnBeginDrag(PointerEventData eventData)
         {

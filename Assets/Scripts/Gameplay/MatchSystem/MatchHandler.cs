@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using POW.Cubes;
 using POW.Gameplay.MatchingArea;
 
@@ -14,15 +13,17 @@ namespace POW.Gameplay.MatchSystem
             _matchManager = manager;
         }
 
-        public void CheckMatches(ReservedCubes reservedCubes, Action onMatchFound)
+        public bool CheckMatches(ReservedCubes reservedCubes, Action<CubeMono[]> onMatchFound)
         {
             CubeMono[] matchedCubes = reservedCubes.GetMatchedCubes();
 
-            if (matchedCubes == null) return;
+            if (matchedCubes == null) return false;
 
             reservedCubes.RemoveCubes(matchedCubes);
 
-            onMatchFound?.Invoke();
+            onMatchFound?.Invoke(matchedCubes);
+
+            return true;
         }
     }
 }

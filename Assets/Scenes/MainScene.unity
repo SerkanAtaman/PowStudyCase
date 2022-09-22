@@ -174,7 +174,9 @@ MonoBehaviour:
   <CubeScale>k__BackingField: {x: 0.33, y: 0.33, z: 0.33}
   <ReserveHolder>k__BackingField: {fileID: 497243978}
   _cubeReserveDemandChannel: {fileID: 11400000, guid: b06151369f19bd7438cfa08a2693ab24, type: 2}
+  _matchAnimEndChannel: {fileID: 11400000, guid: f2c73c1144fa55644ba402f199438337, type: 2}
   _cubeReserveChannel: {fileID: 11400000, guid: 8f919709f22ad32459c304862d5d4722, type: 2}
+  _cubeReserveStartedChannel: {fileID: 11400000, guid: 5ccd000d00c4d174687ac619195dbb2d, type: 2}
 --- !u!1 &347012182
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,53 +323,6 @@ Transform:
   m_Father: {fileID: 117092552}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &895748096
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 895748097}
-  - component: {fileID: 895748098}
-  m_Layer: 0
-  m_Name: InteractableDetector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &895748097
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895748096}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &895748098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895748096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df19bcf941591c5489c3934f7888f86f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _clickChannel: {fileID: 11400000, guid: 1a0aac307a4135b4abfe5b4f3a0105b0, type: 2}
 --- !u!1 &1119906756
 GameObject:
   m_ObjectHideFlags: 0

@@ -155,6 +155,9 @@ MonoBehaviour:
   _cubeTweenSettings: {fileID: 11400000, guid: f175243a5d7413a4292b0d506bbe14b7, type: 2}
   _cubeTweenChannel: {fileID: 11400000, guid: 0e189d61298ab054d8ddb95ac3a470e4, type: 2}
   _platformCreatedChannel: {fileID: 11400000, guid: 8d171bc97cc7e4e419595ee78474ceb5, type: 2}
+  _matchCreatedChannel: {fileID: 11400000, guid: 0a9f2055cfd73304f8e9f3b5771c7049, type: 2}
+  _initializationEndChannel: {fileID: 11400000, guid: a913977d1b6d6f34a81912ba3e623bee, type: 2}
+  _matchAnimEndChannel: {fileID: 11400000, guid: f2c73c1144fa55644ba402f199438337, type: 2}
 --- !u!4 &111603237
 Transform:
   m_ObjectHideFlags: 0
@@ -200,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cubeReserveChannel: {fileID: 11400000, guid: 8f919709f22ad32459c304862d5d4722, type: 2}
   _matchCreatedChannel: {fileID: 11400000, guid: 0a9f2055cfd73304f8e9f3b5771c7049, type: 2}
+  _matchFailedChannel: {fileID: 11400000, guid: d2520da535b6537408fe96fb27049ee7, type: 2}
 --- !u!4 &360173542
 Transform:
   m_ObjectHideFlags: 0
@@ -213,4 +217,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1008621910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1008621912}
+  - component: {fileID: 1008621911}
+  m_Layer: 0
+  m_Name: GameStateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1008621911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008621910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08467a439ec130c48bdfce741ea4f600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateChangedChannel: {fileID: 11400000, guid: bb030677be8ee1949a6d78baa03060a4, type: 2}
+  _cubeReserveStartedChannel: {fileID: 11400000, guid: 5ccd000d00c4d174687ac619195dbb2d, type: 2}
+  _initializationEndChannel: {fileID: 11400000, guid: a913977d1b6d6f34a81912ba3e623bee, type: 2}
+  _matchFailedChannel: {fileID: 11400000, guid: d2520da535b6537408fe96fb27049ee7, type: 2}
+  _animEndChannel: {fileID: 11400000, guid: f2c73c1144fa55644ba402f199438337, type: 2}
+--- !u!4 &1008621912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008621910}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

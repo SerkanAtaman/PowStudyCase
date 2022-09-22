@@ -15,9 +15,11 @@ namespace POW.Gameplay.MatchingArea
 
         [Header("Listening To")]
         [SerializeField] private CubeReserveDemandChannel _cubeReserveDemandChannel;
+        [SerializeField] private MatchAnimEndChannel _matchAnimEndChannel;
 
         [Header("Broadcasting On")]
         [SerializeField] private CubeReserveChannel _cubeReserveChannel;
+        [SerializeField] private CubeReserveStartedChannel _cubeReserveStartedChannel;
 
         private MatchArea _matchArea;
 
@@ -29,11 +31,13 @@ namespace POW.Gameplay.MatchingArea
         private void OnEnable()
         {
             _cubeReserveDemandChannel.OnCubeReserveDemanded += TryReservingCube;
+            _matchAnimEndChannel.OnMatchAnimEnded += ReorderReservedCubes;
         }
 
         private void OnDisable()
         {
             _cubeReserveDemandChannel.OnCubeReserveDemanded -= TryReservingCube;
+            _matchAnimEndChannel.OnMatchAnimEnded -= ReorderReservedCubes;
         }
 
         private void Update()
@@ -44,10 +48,16 @@ namespace POW.Gameplay.MatchingArea
             }
         }
 
+        private void ReorderReservedCubes()
+        {
+            _matchArea.ReservedCubes.Reorder();
+        }
+
         private void TryReservingCube(CubeMono cube)
         {
             if (_matchArea.ReservedCubes.Size >= MaxCubeSize) return;
 
+            _cubeReserveStartedChannel.OnStartedCubeReserve?.Invoke();
             _matchArea.ReserveCube(cube, () => _cubeReserveChannel.OnCubeReserved?.Invoke(_matchArea.ReservedCubes));
         }
 
