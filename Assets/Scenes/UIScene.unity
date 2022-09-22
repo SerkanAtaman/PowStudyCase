@@ -755,7 +755,11 @@ PrefabInstance:
     - target: {fileID: 5728816722163412915, guid: 2ca687b366604bf45a68d2ee12219ea6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d1ec57788624d2b438d89c3ece152d4d, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728816722260625928, guid: 2ca687b366604bf45a68d2ee12219ea6, type: 3}
+      propertyPath: _slotID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5728816722260625928, guid: 2ca687b366604bf45a68d2ee12219ea6, type: 3}
       propertyPath: _ability
       value: 
@@ -1071,6 +1075,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 743063828}
     m_Modifications:
+    - target: {fileID: 5728816722260625928, guid: 2ca687b366604bf45a68d2ee12219ea6, type: 3}
+      propertyPath: _slotID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5728816722260625928, guid: 2ca687b366604bf45a68d2ee12219ea6, type: 3}
       propertyPath: _ability
       value: 

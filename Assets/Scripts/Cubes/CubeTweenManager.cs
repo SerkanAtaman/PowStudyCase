@@ -162,16 +162,10 @@ namespace POW.Cubes
         {
             CubePlatformData platformData = References.Instance.CubePlatformData;
 
-            for (int i = 0; i < platformData.Width; i++)
+            for(int i = 0; i < platformData.Size; i++)
             {
-                for (int j = 0; j < platformData.Height; j++)
-                {
-                    for (int k = 0; k < platformData.Length; k++)
-                    {
-                        CubeMono cube = platformData.GetCube(i, j, k);
-                        if(cube) cube.transform.position += new Vector3(0, 30, 0);
-                    }
-                }
+                CubeMono cube = platformData.GetCube(i);
+                if (cube) cube.transform.position += new Vector3(0, 30, 0);
             }
 
             StartCoroutine(AnimateInitialPlatform(platformData));
@@ -179,33 +173,17 @@ namespace POW.Cubes
 
         private IEnumerator AnimateInitialPlatform(CubePlatformData platformData)
         {
-            int step = platformData.Width * platformData.Height * platformData.Length;
+            int index = 0;
 
-            int x = 0;
-            int y = 0;
-            int z = 0;
-
-            while(step > 0)
+            while(index < platformData.Size)
             {
-                CubeMono cube = platformData.GetCube(x, y, z);
+                CubeMono cube = platformData.GetCube(index);
                 if (cube != null)
                 {
                     cube.transform.DOLocalMove(cube.DefaultLocalPos, _cubeTweenSettings.TweenPosDuration);
                 }
 
-                step--;
-
-                z++;
-                if (z >= platformData.Length)
-                {
-                    z = 0;
-                    x++;
-                    if (x >= platformData.Width)
-                    {
-                        x = 0;
-                        y++;
-                    }
-                }
+                index++;
 
                 yield return null;
             }

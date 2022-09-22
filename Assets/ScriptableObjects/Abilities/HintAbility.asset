@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2cb440a4a4c9c4c8a90e5c574d5c80, type: 3}
   m_Name: HintAbility
   m_EditorClassIdentifier: 
-  <AbilityCount>k__BackingField: 5
+  <AbilityCount>k__BackingField: 3
+  <AbilityIcon>k__BackingField: {fileID: 21300000, guid: d1ec57788624d2b438d89c3ece152d4d, type: 3}
+  <AbilityActions>k__BackingField:
+  - {fileID: 11400000, guid: 1ae4139823105bc4c8b6d61148bb8b41, type: 2}

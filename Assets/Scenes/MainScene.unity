@@ -175,9 +175,11 @@ MonoBehaviour:
   <ReserveHolder>k__BackingField: {fileID: 497243978}
   _cubeReserveDemandChannel: {fileID: 11400000, guid: b06151369f19bd7438cfa08a2693ab24, type: 2}
   _matchAnimEndChannel: {fileID: 11400000, guid: f2c73c1144fa55644ba402f199438337, type: 2}
-  _abilityUsedChannel: {fileID: 11400000, guid: d423b0fcaf3d9b84cbc6ab8104d97fd6, type: 2}
+  _abilitiesSettledChannel: {fileID: 11400000, guid: 14eced3340c4f62499672f298e4b5c70, type: 2}
   _cubeReserveChannel: {fileID: 11400000, guid: 8f919709f22ad32459c304862d5d4722, type: 2}
   _cubeReserveStartedChannel: {fileID: 11400000, guid: 5ccd000d00c4d174687ac619195dbb2d, type: 2}
+  _undoAbilityAction: {fileID: 11400000, guid: 2b95094849b3faa489545e25524c8b96, type: 2}
+  _hintAbilityAction: {fileID: 11400000, guid: 1ae4139823105bc4c8b6d61148bb8b41, type: 2}
 --- !u!1 &347012182
 GameObject:
   m_ObjectHideFlags: 0

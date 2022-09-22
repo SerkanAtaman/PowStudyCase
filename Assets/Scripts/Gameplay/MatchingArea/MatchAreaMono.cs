@@ -5,7 +5,6 @@ using POW.BroadcastingChannels.MatchChannel;
 using POW.BroadcastingChannels.AbilityChannels;
 using POW.Gameplay.AbilitySystem;
 using POW.Cubes;
-using Seroley.DelayHandling;
 
 namespace POW.Gameplay.MatchingArea
 {
@@ -20,11 +19,15 @@ namespace POW.Gameplay.MatchingArea
         [Header("Listening To")]
         [SerializeField] private CubeReserveDemandChannel _cubeReserveDemandChannel;
         [SerializeField] private MatchAnimEndChannel _matchAnimEndChannel;
-        [SerializeField] private AbilityUsedChannel _abilityUsedChannel;
+        [SerializeField] private AbilitiesSettledChannel _abilitiesSettledChannel;
 
         [Header("Broadcasting On")]
         [SerializeField] private CubeReserveChannel _cubeReserveChannel;
         [SerializeField] private CubeReserveStartedChannel _cubeReserveStartedChannel;
+
+        [Header("Ability Actions")]
+        [SerializeField] private AbilityAction _undoAbilityAction;
+        [SerializeField] private AbilityAction _hintAbilityAction;
 
         private MatchArea _matchArea;
 
@@ -37,14 +40,14 @@ namespace POW.Gameplay.MatchingArea
         {
             _cubeReserveDemandChannel.OnCubeReserveDemanded += TryReservingCube;
             _matchAnimEndChannel.OnMatchAnimEnded += ReorderReservedCubes;
-            _abilityUsedChannel.OnAbilityUsed += TryInvokingAbility;
+            _abilitiesSettledChannel.OnAbilitiesSettled += SetProperAbilities;
         }
 
         private void OnDisable()
         {
             _cubeReserveDemandChannel.OnCubeReserveDemanded -= TryReservingCube;
             _matchAnimEndChannel.OnMatchAnimEnded -= ReorderReservedCubes;
-            _abilityUsedChannel.OnAbilityUsed -= TryInvokingAbility;
+            _abilitiesSettledChannel.OnAbilitiesSettled -= SetProperAbilities;
         }
 
         private void ReorderReservedCubes()
@@ -65,22 +68,28 @@ namespace POW.Gameplay.MatchingArea
             _matchArea.UnreserveCube(null);
         }
 
-        protected void UndoAbility(Ability ability)
+        private void UndoAbilityAction(System.Action callback)
         {
-            if(_matchArea.ReservedCubes.Size == 0) return;
+            if (_matchArea.ReservedCubes.Size == 0) return;
 
-            ability.Rise();
+            callback?.Invoke();
             UnreserveCube();
         }
 
-        private IEnumerator HintAbility(Ability ability)
+        private void HintAbilityAction(System.Action callback)
+        {
+            StartCoroutine(HintAbility());
+
+            callback?.Invoke();
+        }
+
+        private IEnumerator HintAbility()
         {
             CubeMono readyToMatch = _matchArea.ReservedCubes.GetCubeReadyToMatch();
 
             if (readyToMatch != null)
             {
                 TryReservingCube(References.Instance.CubePlatformData.GetCubeBySameType(readyToMatch.Type));
-                ability.Rise();
 
                 yield break;
             }
@@ -89,7 +98,6 @@ namespace POW.Gameplay.MatchingArea
             CubeMono[] cubes = References.Instance.CubePlatformData.GetMatchedCubes();
             int index = -1;
             float timer = 1.0f;
-            ability.Rise();
 
             while (index < 2)
             {
@@ -105,20 +113,10 @@ namespace POW.Gameplay.MatchingArea
             }
         }
 
-        private void TryInvokingAbility(Ability ability)
+        private void SetProperAbilities()
         {
-            switch (ability.AbilityType)
-            {
-                case AbilityType.Undo:
-
-                    UndoAbility(ability);
-                    break;
-
-                case AbilityType.Hint:
-
-                    StartCoroutine(HintAbility(ability));
-                    break;
-            }
+            _undoAbilityAction.AbilityFunction = UndoAbilityAction;
+            _hintAbilityAction.AbilityFunction = HintAbilityAction;
         }
     }
 }

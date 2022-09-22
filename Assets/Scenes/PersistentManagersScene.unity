@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cda2fccb39ee3d47a7978125809585b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _abilityUsedChannel: {fileID: 11400000, guid: d423b0fcaf3d9b84cbc6ab8104d97fd6, type: 2}
+  _abilitiesSettledChannel: {fileID: 11400000, guid: 14eced3340c4f62499672f298e4b5c70, type: 2}
   _abilitySlotChannel: {fileID: 11400000, guid: 963526382c618ca468e674a430d2b3d9, type: 2}
 --- !u!4 &1734247370
 Transform:

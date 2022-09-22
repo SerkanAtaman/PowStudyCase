@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace POW.Datas.PlayerDatas
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/Datas/PlayerData")]
+    [CreateAssetMenu(menuName = "ScriptableObjects/Datas/Player/PlayerData")]
     public class PlayerData : ScriptableObject
     {
         [field:SerializeField] public int PlayerStars { get; private set; }

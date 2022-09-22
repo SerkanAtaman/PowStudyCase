@@ -1,11 +1,12 @@
 using POW.Cubes;
 using UnityEngine;
+using POW.Utilities.Collections;
 
 namespace POW.Datas
 {
     public class CubePlatformData
     {
-        private readonly CubeMono[,,] _cubes;
+        private readonly CustomDictionary<Vector3Int, CubeMono> _cubes;
 
         public Transform PlatformHolder;
 
@@ -29,7 +30,7 @@ namespace POW.Datas
 
         public CubePlatformData(int x, int y, int z)
         {
-            _cubes = new CubeMono[x, y, z];
+            _cubes = new CustomDictionary<Vector3Int, CubeMono>();
             Width = x;
             Height = y;
             Length = z;
@@ -38,45 +39,39 @@ namespace POW.Datas
         public void RemoveCube(CubeMono cube)
         {
             Size--;
-            _cubes[cube.Coordinates.x, cube.Coordinates.y, cube.Coordinates.z] = null;
+            _cubes.Remove(cube.Coordinates);
         }
 
         public void AddCube(CubeMono cube)
         {
             Size++;
-            _cubes[cube.Coordinates.x, cube.Coordinates.y, cube.Coordinates.z] = cube;
+            _cubes.Add(cube.Coordinates, cube);
         }
 
-        public CubeMono GetCube(int x, int y, int z)
+        public CubeMono GetCube(Vector3Int coords)
         {
-            return _cubes[x, y, z];
+            return _cubes.GetValue(coords);
+        }
+
+        public CubeMono GetCube(int index)
+        {
+            return _cubes.GetValueOnIndex(index);
         }
 
         public CubeMono GetCubeBySameType(CubeType type)
         {
-            CubeMono mono = null;
+            CubeMono mono;
 
-            for(int i = 0; i < Width; i++)
+            for(int i = 0; i < Size; i++)
             {
-                for (int j = 0; j < Height; j++)
+                if(_cubes.GetValueOnIndex(i).Type == type)
                 {
-                    for (int k = 0; k < Length; k++)
-                    {
-                        if(_cubes[i, j, k] != null && _cubes[i, j, k].Type == type)
-                        {
-                            mono = _cubes[i, j, k];
-                            return mono;
-                        }
-                    }
+                    mono = _cubes.GetValueOnIndex(i);
+                    return mono;
                 }
             }
 
             return null;
-        }
-
-        public Vector3 GetCubeWorldPos(Vector3Int coords)
-        {
-            return new Vector3(coords.x, coords.y, coords.z);
         }
 
         public CubeMono[] GetMatchedCubes()
@@ -85,19 +80,13 @@ namespace POW.Datas
             CubeType type = GetRandomTypeFromPlatform();
             int index = 0;
 
-            for (int i = 0; i < Width; i++)
+            for(int i = 0; i < Size; i++)
             {
-                for (int j = 0; j < Height; j++)
+                if(_cubes.GetValueOnIndex(i).Type == type)
                 {
-                    for (int k = 0; k < Length; k++)
-                    {
-                        if (_cubes[i, j, k] != null && _cubes[i, j, k].Type == type)
-                        {
-                            matchedCubes[index] = _cubes[i, j, k];
-                            index++;
-                            if (index >= 3) return matchedCubes;
-                        }
-                    }
+                    matchedCubes[index] = _cubes.GetValueOnIndex(i);
+                    index++;
+                    if (index >= 3) return matchedCubes;
                 }
             }
 
@@ -106,21 +95,7 @@ namespace POW.Datas
 
         private CubeType GetRandomTypeFromPlatform()
         {
-            for (int i = 0; i < Width; i++)
-            {
-                for (int j = 0; j < Height; j++)
-                {
-                    for (int k = 0; k < Length; k++)
-                    {
-                        if (_cubes[i, j, k] != null)
-                        {
-                            return _cubes[i, j, k].Type;
-                        }
-                    }
-                }
-            }
-
-            return default;
+            return _cubes.GetValue(_cubes.GetRandomKey()).Type;
         }
     }
 }

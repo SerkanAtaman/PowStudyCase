@@ -99,6 +99,11 @@ namespace POW.Utilities.Collections
             return _values[index];
         }
 
+        public W GetValueOnIndex(int index)
+        {
+            return _values[index];
+        }
+
         public T GetKey(W value)
         {
             int index = -1;

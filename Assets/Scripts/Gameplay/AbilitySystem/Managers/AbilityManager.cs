@@ -6,7 +6,7 @@ namespace POW.Gameplay.AbilitySystem.Managers
     public class AbilityManager : MonoBehaviour
     {
         [Header("Broadcasting On")]
-        [SerializeField] private AbilityUsedChannel _abilityUsedChannel;
+        [SerializeField] private AbilitiesSettledChannel _abilitiesSettledChannel;
 
         [Header("Listening To")]
         [SerializeField] private AbilitySlotChannel _abilitySlotChannel;
@@ -16,9 +16,14 @@ namespace POW.Gameplay.AbilitySystem.Managers
             _abilitySlotChannel.OnAbilitySlotUsed += ProcessUsedAbilitySlot;
         }
 
+        private void Start()
+        {
+            _abilitiesSettledChannel.OnAbilitiesSettled.Invoke();
+        }
+
         private void ProcessUsedAbilitySlot(Ability ability)
         {
-            _abilityUsedChannel.OnAbilityUsed?.Invoke(ability);
+            ability.Rise();
         }
     }
 }
