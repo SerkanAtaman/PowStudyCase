@@ -49,6 +49,7 @@ namespace POW.Cubes
 
         public void GetBackToPlatform(Action callback)
         {
+            References.Instance.CubePlatformData.AddCube(this);
             _cubeRotator.enabled = false;
 
             transform.SetParent(References.Instance.CubePlatformData.PlatformHolder);
@@ -60,6 +61,8 @@ namespace POW.Cubes
 
         public void GoToMatchArea(Transform parent, Vector3 localPos, Quaternion localRot, Vector3 localScale, Action callback)
         {
+            References.Instance.CubePlatformData.RemoveCube(this);
+
             transform.SetParent(parent);
 
             _cubeTweenChannel.OnCubeTweenDemanded?.Invoke(new CubeTweenData(transform, CubeTweenType.TPositionRotationScale, localPos, localRot, localScale, Space.Self, callback));

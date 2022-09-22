@@ -108,6 +108,22 @@ namespace POW.Gameplay.MatchingArea
             return cube;
         }
 
+        public CubeMono GetCubeReadyToMatch()
+        {
+            CubeMono cube = null;
+
+            for (int i = 0; i < Size - 1; i++)
+            {
+                if (_reservedCubes[i].Type == _reservedCubes[i + 1].Type)
+                {
+                    cube = _reservedCubes[i];
+                    return cube;
+                }
+            }
+
+            return null;
+        }
+
         public bool ContainsSameCube(CubeMono cubeToMatch)
         {
             bool contains = false;
