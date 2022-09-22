@@ -441,7 +441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 08eca7af1a51f4e42956e957e57f17cd, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -503,7 +503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122a96b2936417e4d9157948ec3855e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 0}
+  _slotID: 0
   _abilityCountText: {fileID: 5728816721675903891}
+  _abilityImage: {fileID: 5728816722163412915}
+  _abilityData: {fileID: 11400000, guid: a8bf0fcf7614af94d88a143b099cc810, type: 2}
   _abilitySlotChannel: {fileID: 11400000, guid: 963526382c618ca468e674a430d2b3d9, type: 2}
   _stateChangedChannel: {fileID: 11400000, guid: bb030677be8ee1949a6d78baa03060a4, type: 2}

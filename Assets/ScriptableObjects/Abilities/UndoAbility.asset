@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: UndoAbility
   m_EditorClassIdentifier: 
   <AbilityCount>k__BackingField: 5
-  <AbilityAction>k__BackingField: {fileID: 11400000, guid: bc3ee71e25b725e4997d3f2398b901c1, type: 2}
+  <AbilityActions>k__BackingField:
+  - {fileID: 11400000, guid: 2b95094849b3faa489545e25524c8b96, type: 2}
+  <AbilityIcon>k__BackingField: {fileID: 21300000, guid: 08eca7af1a51f4e42956e957e57f17cd, type: 3}
