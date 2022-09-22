@@ -12,6 +12,20 @@ namespace POW.Datas
         public int Width { get; private set; }
         public int Height { get; private set; }
         public int Length { get; private set; }
+        public int Size { get; private set; }
+
+        public int MaxSize
+        {
+            get
+            {
+                int maxSize = Width;
+                if(Height > maxSize) maxSize = Height;
+                if(Length > maxSize) maxSize = Length;
+
+                return maxSize;
+            }
+        }
+
 
         public CubePlatformData(int x, int y, int z)
         {
@@ -21,18 +35,15 @@ namespace POW.Datas
             Length = z;
         }
 
-        public void UpdateCube(int x, int y, int z, CubeMono cube)
-        {
-            _cubes[x, y, z] = cube;
-        }
-
         public void RemoveCube(CubeMono cube)
         {
+            Size--;
             _cubes[cube.Coordinates.x, cube.Coordinates.y, cube.Coordinates.z] = null;
         }
 
         public void AddCube(CubeMono cube)
         {
+            Size++;
             _cubes[cube.Coordinates.x, cube.Coordinates.y, cube.Coordinates.z] = cube;
         }
 

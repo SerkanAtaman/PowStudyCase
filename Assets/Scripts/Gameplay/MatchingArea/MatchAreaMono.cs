@@ -65,13 +65,22 @@ namespace POW.Gameplay.MatchingArea
             _matchArea.UnreserveCube(null);
         }
 
-        private IEnumerator HintAbility()
+        protected void UndoAbility(Ability ability)
+        {
+            if(_matchArea.ReservedCubes.Size == 0) return;
+
+            ability.Rise();
+            UnreserveCube();
+        }
+
+        private IEnumerator HintAbility(Ability ability)
         {
             CubeMono readyToMatch = _matchArea.ReservedCubes.GetCubeReadyToMatch();
 
             if (readyToMatch != null)
             {
                 TryReservingCube(References.Instance.CubePlatformData.GetCubeBySameType(readyToMatch.Type));
+                ability.Rise();
 
                 yield break;
             }
@@ -80,8 +89,9 @@ namespace POW.Gameplay.MatchingArea
             CubeMono[] cubes = References.Instance.CubePlatformData.GetMatchedCubes();
             int index = -1;
             float timer = 1.0f;
+            ability.Rise();
 
-            while(index < 2)
+            while (index < 2)
             {
                 timer += Time.deltaTime;
                 if(timer >= 0.3f)
@@ -101,12 +111,12 @@ namespace POW.Gameplay.MatchingArea
             {
                 case AbilityType.Undo:
 
-                    UnreserveCube();
+                    UndoAbility(ability);
                     break;
 
                 case AbilityType.Hint:
 
-                    StartCoroutine(HintAbility());
+                    StartCoroutine(HintAbility(ability));
                     break;
             }
         }
