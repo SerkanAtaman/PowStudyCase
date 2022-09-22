@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using POW.BroadcastingChannels.CubeAnimationChannel;
 using POW.BroadcastingChannels.CubePlatformChannel;
+using POW.BroadcastingChannels.GameStateChannels;
+using POW.BroadcastingChannels.MatchChannel;
 using POW.Settings.Cube;
 using POW.Datas;
 using DG.Tweening;
@@ -16,17 +18,26 @@ namespace POW.Cubes
         [Header("Listening To")]
         [SerializeField] private CubeTweenChannel _cubeTweenChannel;
         [SerializeField] private PlatformCreatedChannel _platformCreatedChannel;
+        [SerializeField] private MatchCreatedChannel _matchCreatedChannel;
+
+        [Header("Broadcasting On")]
+        [SerializeField] private InitializationEndChannel _initializationEndChannel;
+        [SerializeField] private MatchAnimEndChannel _matchAnimEndChannel;
+
+        private CubeMono[] _matchedCubes;
 
         private void OnEnable()
         {
             _cubeTweenChannel.OnCubeTweenDemanded += OnCubeTweenDemanded;
             _platformCreatedChannel.OnCubePlatformCreated += OnCubePlatformCreated;
+            _matchCreatedChannel.OnMatchCreated += OnMatchCreated;
         }
 
         private void OnDisable()
         {
             _cubeTweenChannel.OnCubeTweenDemanded -= OnCubeTweenDemanded;
             _platformCreatedChannel.OnCubePlatformCreated -= OnCubePlatformCreated;
+            _matchCreatedChannel.OnMatchCreated -= OnMatchCreated;
         }
 
         private void OnCubeTweenDemanded(CubeTweenData tweenData)
@@ -37,6 +48,27 @@ namespace POW.Cubes
         private void OnCubePlatformCreated(CubePlatformData platformData)
         {
             StartAnimatingInitialPlatform(platformData);
+        }
+
+        private void OnMatchCreated(CubeMono[] matchedCubes)
+        {
+            MergeMatchedCubes(matchedCubes);
+        }
+
+        private void OnMatchedCubesMerged()
+        {
+            if (_matchedCubes == null)
+            {
+                Debug.LogError("MatchCubes can not be null");
+                return;
+            }
+
+            foreach(CubeMono match in _matchedCubes)
+            {
+                Destroy(match.gameObject);
+            }
+
+            _matchAnimEndChannel.OnMatchAnimEnded?.Invoke();
         }
 
         private void ProcessTweenDemand(CubeTweenData tweenData)
@@ -118,6 +150,14 @@ namespace POW.Cubes
             }
         }
 
+        private void MergeMatchedCubes(CubeMono[] cubes)
+        {
+            _matchedCubes = cubes;
+
+            cubes[0].transform.DOMove(cubes[1].transform.position, _cubeTweenSettings.TweenPosDuration);
+            cubes[2].transform.DOMove(cubes[1].transform.position, _cubeTweenSettings.TweenPosDuration).onComplete += OnMatchedCubesMerged;
+        }
+
         private void StartAnimatingInitialPlatform(CubePlatformData platformData)
         {
             for (int i = 0; i < platformData.Width; i++)
@@ -166,6 +206,8 @@ namespace POW.Cubes
 
                 yield return null;
             }
+
+            _initializationEndChannel.OnInitializationEnd?.Invoke();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace POW.Gameplay.MatchingArea
 
             if (ReservedCubes.ContainsSameCube(cube))
             {
-                ReservedCubes.ExpandListFromThis(cube, _areaMono.DistanceBtwCubes);
+                ReservedCubes.ExpandListFromThis(cube);
                 ReservedCubes.ReserveNewCube(cube, targetIndexInList);
                 cube.GoToMatchArea(_areaMono.ReserveHolder, targetPos, rot, _areaMono.CubeScale, onReserveCompleted);
 

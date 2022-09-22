@@ -1,5 +1,6 @@
 using UnityEngine;
 using POW.BroadcastingChannels.InputChannel;
+using POW.BroadcastingChannels.GameStateChannels;
 using POW.Utilities.Physic;
 
 namespace POW.Controls
@@ -10,6 +11,12 @@ namespace POW.Controls
 
         [Header("Listening To")]
         [SerializeField] private ClickReceiverChannel _clickChannel;
+        [SerializeField] private GameStateChangedChannel _gameStateChangedChannel;
+
+        private void Awake()
+        {
+            _gameStateChangedChannel.OnGameStateChanged += OnGameStateChanged;
+        }
 
         private void OnEnable()
         {
@@ -19,6 +26,11 @@ namespace POW.Controls
         private void OnDisable()
         {
             _clickChannel.OnPointerClicked -= CheckInteractableOnPoint;
+        }
+
+        private void OnGameStateChanged(GameState state)
+        {
+            enabled = state == GameState.Gameplay;
         }
 
         private void CheckInteractableOnPoint(Vector3 mousePos)

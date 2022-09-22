@@ -20,7 +20,9 @@ namespace POW.Gameplay.MatchingArea
             }
         }
 
-        private MatchArea _matchArea;
+        private readonly MatchArea _matchArea;
+
+        private int _dirtyIndex;
 
         public ReservedCubes(MatchArea area)
         {
@@ -53,7 +55,7 @@ namespace POW.Gameplay.MatchingArea
             _reservedCubes[index] = cube;
         }
 
-        public void ExpandListFromThis(CubeMono cube, float slideAmount)
+        public void ExpandListFromThis(CubeMono cube)
         {
             int startIndex = GetCubeIndex(cube);
 
@@ -75,17 +77,24 @@ namespace POW.Gameplay.MatchingArea
             {
                 _reservedCubes.Remove(c);
                 Size--;
-                GameObject.Destroy(c.gameObject);
             }
 
-            if (startIndex >= Size) return;
+            _dirtyIndex = startIndex;
+        }
 
-            while(startIndex < Size)
+        public void Reorder()
+        {
+            if (_dirtyIndex >= Size) return;
+            if (_dirtyIndex < 0) return;
+
+            while (_dirtyIndex < Size)
             {
-                _reservedCubes[startIndex].SetPositionInReserve(_matchArea.GetCubePositionInReserve(startIndex));
+                _reservedCubes[_dirtyIndex].SetPositionInReserve(_matchArea.GetCubePositionInReserve(_dirtyIndex));
 
-                startIndex++;
+                _dirtyIndex++;
             }
+
+            _dirtyIndex = -1;
         }
 
         public CubeMono UnreserveCube()

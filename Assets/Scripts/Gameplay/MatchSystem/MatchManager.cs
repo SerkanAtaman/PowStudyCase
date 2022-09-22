@@ -11,6 +11,7 @@ namespace POW.Gameplay.MatchSystem
 
         [Header("Broadcasting On")]
         [SerializeField] private MatchCreatedChannel _matchCreatedChannel;
+        [SerializeField] private MatchFailedChannel _matchFailedChannel;
 
         private MatchHandler _matchHandler;
 
@@ -31,7 +32,9 @@ namespace POW.Gameplay.MatchSystem
 
         private void CheckPossibleMatches(ReservedCubes reservedCubes)
         {
-            _matchHandler.CheckMatches(reservedCubes, () => _matchCreatedChannel.OnMatchCreated?.Invoke());
+            if (_matchHandler.CheckMatches(reservedCubes, _matchCreatedChannel.OnMatchCreated)) return;
+
+            _matchFailedChannel.OnMatchFailed?.Invoke();
         }
     }
 }
